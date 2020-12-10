@@ -12,7 +12,9 @@ Text file size: 11GB
 
 Text file lines: 500 million
 
-Spent time: 11 sec
+First spent time: 34 sec
+
+Secondly spent time: 11 sec
 
 ## Usage
 
