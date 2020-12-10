@@ -13,7 +13,7 @@ import (
 
 func main() {
 	filePath := flag.String("f", "text.txt", "file path to read from")
-
+	flag.Parse()
 	//Open file
 	f, err := os.OpenFile(*filePath, os.O_RDONLY, 0644)
 	if err != nil {
