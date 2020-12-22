@@ -1,5 +1,5 @@
 @echo off
-set glc_version=1.0.0
+set glc_version=1.1.0
 
 set GOOS=darwin
 set GOARCH=amd64
