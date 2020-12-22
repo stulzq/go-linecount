@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
+	"github.com/cheggaaa/pb/v3"
 	mp "github.com/edsrzf/mmap-go"
 	"log"
 	"os"
@@ -26,6 +27,9 @@ func main() {
 		}
 	}()
 
+	fi, _ := f.Stat()
+	bar := pb.Full.Start64(fi.Size())
+
 	//mmap
 	np, err := mp.Map(f, mp.RDONLY, 0)
 	defer np.Unmap()
@@ -33,7 +37,8 @@ func main() {
 		panic(err)
 	}
 
-	s := bufio.NewScanner(bytes.NewReader(np))
+	reader := bar.NewProxyReader(bytes.NewReader(np))
+	s := bufio.NewScanner(reader)
 
 	startTime := time.Now()
 	count := 0
@@ -42,6 +47,7 @@ func main() {
 	}
 
 	endTime := time.Now()
+	bar.Finish()
 	spent := endTime.Sub(startTime)
 	fmt.Printf("Line count：%d \n", count)
 	fmt.Printf("Time：%d sec\n", int(spent.Seconds()))
